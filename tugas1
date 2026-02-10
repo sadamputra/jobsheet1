@@ -1,0 +1,102 @@
+package semester2.jobsheet1.tugas;
+
+import java.util.Scanner;
+
+public class JadwalKuliah {
+
+    // a. Input jadwal
+    static void inputJadwal(String[][] jadwal, int n) {
+        Scanner input = new Scanner(System.in);
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("Jadwal ke-" + (i + 1));
+            System.out.print("Nama Mata Kuliah : ");
+            jadwal[i][0] = input.nextLine();
+
+            System.out.print("Ruang            : ");
+            jadwal[i][1] = input.nextLine();
+
+            System.out.print("Hari             : ");
+            jadwal[i][2] = input.nextLine();
+
+            System.out.print("Jam              : ");
+            jadwal[i][3] = input.nextLine();
+
+            System.out.println();
+        }
+    }
+
+    // b. Tampilkan semua jadwal
+    static void tampilSemua(String[][] jadwal, int n) {
+        System.out.println("DAFTAR JADWAL KULIAH");
+        System.out.println("============================================================");
+        System.out.printf("%-25s %-15s %-10s %-15s\n",
+                "Mata Kuliah", "Ruang", "Hari", "Jam");
+
+        for (int i = 0; i < n; i++) {
+            System.out.printf("%-25s %-15s %-10s %-15s\n",
+                    jadwal[i][0], jadwal[i][1], jadwal[i][2], jadwal[i][3]);
+        }
+    }
+
+    // c. Tampilkan jadwal berdasarkan hari
+    static void cariHari(String[][] jadwal, int n, String hari) {
+        boolean ketemu = false;
+
+        for (int i = 0; i < n; i++) {
+            if (jadwal[i][2].equalsIgnoreCase(hari)) {
+                System.out.println(jadwal[i][0] + " | " +
+                                   jadwal[i][1] + " | " +
+                                   jadwal[i][2] + " | " +
+                                   jadwal[i][3]);
+                ketemu = true;
+            }
+        }
+
+        if (!ketemu) {
+            System.out.println("Tidak ada jadwal pada hari " + hari);
+        }
+    }
+
+    // d. Tampilkan jadwal berdasarkan nama MK
+    static void cariMK(String[][] jadwal, int n, String mk) {
+        boolean ketemu = false;
+
+        for (int i = 0; i < n; i++) {
+            if (jadwal[i][0].equalsIgnoreCase(mk)) {
+                System.out.println("Mata Kuliah : " + jadwal[i][0]);
+                System.out.println("Ruang       : " + jadwal[i][1]);
+                System.out.println("Hari        : " + jadwal[i][2]);
+                System.out.println("Jam         : " + jadwal[i][3]);
+                ketemu = true;
+            }
+        }
+
+        if (!ketemu) {
+            System.out.println("Mata kuliah tidak ditemukan");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Masukkan jumlah jadwal kuliah: ");
+        int n = input.nextInt();
+        input.nextLine(); // buang enter
+
+        String[][] jadwal = new String[n][4];
+
+        inputJadwal(jadwal, n);
+        tampilSemua(jadwal, n);
+
+        System.out.print("\nCari jadwal berdasarkan hari: ");
+        String hari = input.nextLine();
+        cariHari(jadwal, n, hari);
+
+        System.out.print("\nCari jadwal berdasarkan nama mata kuliah: ");
+        String mk = input.nextLine();
+        cariMK(jadwal, n, mk);
+
+        input.close();
+    }
+}
